@@ -19,7 +19,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'account',  # use this first to override admin templates
+    'account',  # use this first to override admin auth templates
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
