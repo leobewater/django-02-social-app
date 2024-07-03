@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',  # message framework
     'django.contrib.staticfiles',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -119,8 +120,11 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
 # CUSTOM AUTHENTICATION
+# The user credentials will be checked using ModelBackend, and if no user is returned, the credentials will be checked using EmailAuthBackend.
 AUTHENTICATION_BACKENDS = [
+    # auth by username and password
     'django.contrib.auth.backends.ModelBackend',
+    # our custom auth by email and password
     'account.authentication.EmailAuthBackend',
 ]
 
