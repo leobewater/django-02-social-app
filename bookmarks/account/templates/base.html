@@ -10,6 +10,7 @@
 <body>
   <div id="header">
     <span class="logo">Bookmarks</span>
+
     {% if request.user.is_authenticated %}
     <ul class="menu">
       <li {% if section == "dashboard" %}class="selected" {% endif %}>
@@ -25,8 +26,8 @@
     {% endif %}
 
     <span class="user">
-      {% if request.user.is_authenticated %} Hello {{
-        request.user.first_name|default:request.user.username }},
+      {% if request.user.is_authenticated %}
+      Hello {{ request.user.first_name|default:request.user.username }},
       <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit">Logout</button>
@@ -36,6 +37,7 @@
       {% endif %}
     </span>
   </div>
+
   {% if messages %}
   <ul class="message">
     {% for message in messages %}
@@ -45,6 +47,7 @@
     {% endfor %}
   </ul>
   {% endif %}
+
   <div id="content">{% block content %} {% endblock %}</div>
 </body>
 
