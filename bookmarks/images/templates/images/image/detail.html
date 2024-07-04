@@ -6,7 +6,7 @@
 
 {% load thumbnail %}
 <a href="{{ image.image.url }}">
-  <img src="{% thumbnail image.image 300x0 %}" class="image-detail">
+  <img src="{% thumbnail image.image 300x0 quality=85 %}" class="image-detail">
 </a>
 
 {% with total_likes=image.users_like.count %}
