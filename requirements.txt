@@ -9,3 +9,5 @@ werkzeug==3.0.3
 pyOpenSSL==24.1.0
 requests==2.32.3
 easy-thumbnails==2.8.5
+django-debug-toolbar==4.4.2
+redis==5.0.7
