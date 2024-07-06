@@ -11,6 +11,9 @@ from .forms import LoginForm, ProfileEditForm, UserEditForm, UserRegistrationFor
 from .models import Contact, Profile
 
 
+User = get_user_model()
+
+
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -83,7 +86,7 @@ def edit(request):
         profile_form = ProfileEditForm(
             instance=request.user.profile,
             data=request.POST,
-            files=request.FILES
+            files=request.FILES,
         )
 
         if user_form.is_valid() and profile_form.is_valid():
@@ -96,15 +99,12 @@ def edit(request):
             messages.error(request, 'Error updating your profile')
     else:
         user_form = UserEditForm(instance=request.user)
-        profile_form = ProfileEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
 
     return render(request, 'account/edit.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })
-
-
-User = get_user_model()
 
 
 @login_required
@@ -140,7 +140,7 @@ def user_follow(request):
                 )
 
                 # track user's action
-                create_action(register.user, 'is following', user)
+                create_action(request.user, 'is following', user)
             else:
                 Contact.objects.filter(
                     user_from=request.user,

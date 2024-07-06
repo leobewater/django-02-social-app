@@ -19,12 +19,12 @@ class Contact(models.Model):
     user_from = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='rel_from_set',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     user_to = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='rel_from_to',
+        related_name='rel_to_set',
         on_delete=models.CASCADE
     )
 
