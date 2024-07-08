@@ -177,3 +177,9 @@ ABSOLUTE_URL_OVERRIDES = {
 }
 
 # THUMBNAIL_DEBUG = True
+
+
+# REDIS
+REDIS_HOST = 'host.docker.internal'
+REDIS_PORT = 6379
+REDIS_DB = 0
