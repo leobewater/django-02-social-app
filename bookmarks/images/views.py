@@ -50,6 +50,10 @@ def image_detail(request, id, slug):
     # Increment total image views by 1 in Redis
     total_views = r.incr(f'images:{image.id}:views')
 
+    # Increment image ranking by 1 in a set
+    # You use the zincrby() command to store image views in a sorted set
+    r.zincrby('image_ranking', 1, image.id)
+
     return render(request, 'images/image/detail.html', {
         'section': 'images',
         'image': image,
@@ -108,3 +112,20 @@ def image_list(request):
                   'section': 'images',
                   'images': images
                   })
+
+
+@login_required
+def image_ranking(request):
+    # get image ranking dictionary
+    image_ranking = r.zrange('image_ranking', 0, -1, desc=True)[:10]
+    image_ranking_ids = [int(id) for id in image_ranking]
+
+    # get most viewed images
+    most_viewed = list(Image.objects.filter(id__in=image_ranking_ids))
+    most_viewed.sort(key=lambda x: image_ranking_ids.index(x.id))
+
+    return render(
+        request,
+        'images/image/ranking.html',
+        {'section': 'images', 'most_viewed': most_viewed}
+    )
